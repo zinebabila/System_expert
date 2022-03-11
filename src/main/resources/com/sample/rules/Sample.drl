@@ -1,0 +1,250 @@
+package com.sample.rules
+import fstm.projet.model.Diagnostic;
+import fstm.projet.model.Symptoms;
+import fstm.projet.model.Client;
+import fstm.projet.model.Region;
+import fstm.projet.model.Docteur;
+import fstm.projet.model.Maladie_chronique;
+rule "Regle 1"
+    when
+      G:Diagnostic( get_possi_presence() == 0.0  )
+      Symptoms(  id_Sym == 1) from G.Mysymtoms
+      Symptoms(  id_Sym == 2) from G.Mysymtoms
+      Symptoms(  id_Sym == 3) from G.Mysymtoms
+      Client (getTempareture() >= 38) from G.MyClient
+     
+    then
+       
+       System.out.println(" Regle 1-> resultat = 0.6 " );  
+      modify(G){set_possi_presence(0.6)};
+end
+rule "Regle 2"
+    when
+     G:Diagnostic(get_possi_presence() == 0.6 )
+     Symptoms( id_Sym == 4) from G.Mysymtoms
+    then
+       System.out.println(" Regle 2-> resultat = 0.7" );
+        modify(G){set_possi_presence(0.7)};
+
+end
+rule "Regle 3"
+    when
+     G:Diagnostic(get_possi_presence() >= 0.7 , get_possi_presence() < 0.8)
+     Region( haut_risque()==true ) from G.MyClient.getRegion()
+    then
+       
+        modify(G){set_possi_presence(0.8)};
+        System.out.println(" Regle 3-> resultat = 0.8" );
+        
+        
+        
+end
+rule "Regle 4"
+    when
+     G:Diagnostic(get_possi_presence() >= 0.7 , get_possi_presence() < 0.8 )
+     Symptoms( id_Sym == 5) from G.Mysymtoms
+      Symptoms( id_Sym == 6) from G.Mysymtoms
+    then
+       
+        modify(G){set_possi_presence(0.8)};
+        System.out.println(" Regle 4-> resultat = 0.8" );
+end
+rule "Regle 5"
+    when
+     G:Diagnostic(get_possi_presence() >= 0.8 , get_possi_presence() < 0.9 )
+     Symptoms( id_Sym == 7) from G.Mysymtoms
+    then
+       
+        modify(G){set_possi_presence(0.9)};
+        System.out.println(" Regle 5-> resultat = 0.9" );
+end
+rule "Regle 6"
+    when
+     G:Diagnostic(get_possi_presence() >= 0.6 , get_possi_presence() < 0.95  )
+     Symptoms( id_Sym == 8) from G.Mysymtoms
+    then
+       
+        modify(G){set_possi_presence(0.95)};
+        System.out.println(" Regle 6-> resultat = 0.95" );
+end
+rule "Regle 7"
+    when
+     G:Diagnostic(get_possi_presence() >= 0.8   )
+      Docteur(isRemplie() == false) from G.d
+     
+    then
+    modify(G){envoyer()};
+     System.out.println(" Regle 7-> msg envoyé" );
+end
+rule "Regle 8"
+    when
+     G:Diagnostic(get_possi_presence() >= 0.6   )
+      Docteur(isRemplie() == false) from G.d
+     Client( getage()>=70 ) from G.MyClient
+     
+    then
+       
+     modify(G){envoyer()};
+        System.out.println(" Regle 8-> msg envoyé" );
+end
+rule "Regle 9"
+    when
+     G:Diagnostic(get_possi_presence() >= 0.6   )
+      Docteur(isRemplie() == false) from G.d
+    Maladie_chronique(getId_maladie()==1 || getId_maladie()==2 || getId_maladie()==3  ) from G.MyClient.maladies
+     
+    then
+       
+    modify(G){envoyer()};
+        System.out.println(" Regle 9-> msg envoyé" );
+end
+rule "Regle 10"
+    when
+     G:Diagnostic(get_possi_presence() >= 0.6 , get_possi_presence() < 0.8  )
+     Symptoms( id_Sym == 9) from G.Mysymtoms
+    then
+       
+        modify(G){set_possi_presence(0.8)};
+        System.out.println(" Regle 10-> resultat = 0.8" );
+end
+rule "Regle 11"
+    when
+     G:Diagnostic(get_possi_presence() >= 0.6 , get_possi_presence() < 0.8  )
+     Symptoms( id_Sym == 10) from G.Mysymtoms
+    then
+       
+        modify(G){set_possi_presence(0.8)};
+        System.out.println(" Regle 11-> resultat = 0.8" );
+end
+rule "Regle 12"
+    when
+     G:Diagnostic(get_possi_presence() >= 0.6 , get_possi_presence() < 0.8  )
+     Symptoms( id_Sym == 11) from G.Mysymtoms
+    then
+       
+        modify(G){set_possi_presence(0.8)};
+        System.out.println(" Regle 12-> resultat = 0.8" );
+end
+rule "Regle 13"
+    when
+     G:Diagnostic(get_possi_presence() >= 0.6 , get_possi_presence() < 0.8  )
+     Symptoms( id_Sym == 12) from G.Mysymtoms
+    then
+       
+        modify(G){set_possi_presence(0.8)};
+        System.out.println(" Regle 13-> resultat = 0.8" );
+end
+rule "Regle 14"
+    when
+     G:Diagnostic(get_possi_presence() >= 0.6 , get_possi_presence() < 0.8  )
+    Symptoms( id_Sym == 13 || id_Sym==14) from G.Mysymtoms
+    
+    then
+       
+        modify(G){set_possi_presence(0.8)};
+        System.out.println(" Regle 14-> resultat = 0.8" );
+end
+rule "Regle 15"
+    when
+     G:Diagnostic(get_possi_presence() >= 0.6 , get_possi_presence() < 0.85  )
+     Symptoms( id_Sym == 15) from G.Mysymtoms
+     
+    then
+       
+        modify(G){set_possi_presence(0.85)};
+        System.out.println(" Regle 15-> resultat = 0.85" );
+end
+
+rule "Regle 16"
+    when
+     G:Diagnostic( )
+     Client( getage()>=70 ) from G.MyClient
+     Symptoms( id_Sym == 16 || id_Sym == 17 ) from G.Mysymtoms
+     
+    then
+       
+        modify(G){set_possi_presence(0.6)};
+        System.out.println(" Regle 16-> resultat = 0.6" );
+end
+rule "Regle 17"
+    when
+    G:Diagnostic( )
+     Client( getage()>=70 ) from G.MyClient
+     Symptoms( id_Sym == 7 ) from G.Mysymtoms
+     
+    then
+       
+        modify(G){set_possi_presence(0.6)};
+        System.out.println(" Regle 17-> resultat = 0.6" );
+end
+
+rule "Regle 18"
+    when
+     G:Diagnostic(get_possi_presence() >= 0.6 , get_possi_presence() < 0.8  )
+     Symptoms( id_Sym == 18 || id_Sym == 19 ) from G.Mysymtoms
+
+    then
+       
+        modify(G){set_possi_presence(0.8)};
+        System.out.println(" Regle 18-> resultat = 0.8" );
+end
+rule "Regle 19"
+    when
+     G:Diagnostic(get_possi_presence() >= 0.6 , get_possi_presence() < 0.9  )
+     Symptoms( id_Sym == 20 ) from G.Mysymtoms
+
+    then
+       
+        modify(G){set_possi_presence(0.9)};
+        System.out.println(" Regle 19-> resultat = 0.9" );
+end
+rule "Regle 20"
+    when
+     G:Diagnostic(get_possi_presence() >= 0.6 , get_possi_presence() < 0.8  )
+     Symptoms( id_Sym == 21 ) from G.Mysymtoms
+
+    then
+       
+        modify(G){set_possi_presence(0.8)};
+        System.out.println(" Regle 20-> resultat = 0.8" );
+end
+rule "Regle 21"
+    when
+     G:Diagnostic(get_possi_presence() >= 0.6 , get_possi_presence() < 0.8  )
+     Symptoms( id_Sym == 22 ) from G.Mysymtoms
+
+    then
+       
+        modify(G){set_possi_presence(0.8)};
+        System.out.println(" Regle 21-> resultat = 0.8" );
+end
+rule "Regle 22"
+    when
+     G:Diagnostic(get_possi_presence() >= 0.8   )
+      Docteur(isRemplie() == false) from G.d
+     
+    then
+    modify(G){envoyer()};
+     System.out.println(" Regle 22-> msg envoyé" );
+end
+rule "Regle 23"
+    when
+     G:Diagnostic(get_possi_presence() >= 0.8   )
+      Client( getage()>=70 ) from G.MyClient
+      Docteur(isRemplie() == false) from G.d
+     
+    then
+    modify(G){envoyer()};
+     System.out.println(" Regle 7-> msg envoyé" );
+end
+rule "Regle 24"
+    when
+     G:Diagnostic(get_possi_presence() >= 0.6   )
+      Docteur(isRemplie() == false) from G.d
+    Maladie_chronique(getId_maladie()==1 || getId_maladie()==2 || getId_maladie()==3  ) from G.MyClient.maladies
+     
+    then
+       
+    modify(G){envoyer()};
+        System.out.println(" Regle 24-> msg envoyé" );
+end
