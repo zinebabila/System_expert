@@ -1,4 +1,4 @@
-package fstm.projet.model;
+package fstm.projet.model.bo;
 
 import java.util.Vector;
 

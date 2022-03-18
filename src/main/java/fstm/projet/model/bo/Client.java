@@ -1,9 +1,10 @@
-package fstm.projet.model;
+package fstm.projet.model.bo;
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Vector;
 
 
-public class Client {
+public class Client implements Serializable {
 	int Id_Client;
 	String Nom;
 	String Prenom;
@@ -11,7 +12,19 @@ public class Client {
 	Region region;
 	Calendar date_naissance;
     double Tempareture;
+    Compte cmptCompte;
     Vector<Maladie_chronique> maladies;
+    
+    
+    
+    public Compte getCmptCompte() {
+		return cmptCompte;
+	}
+	public void setCmptCompte(Compte cmptCompte) {
+		this.cmptCompte = cmptCompte;
+	}
+
+	
 	public Calendar getDate_naissance() {
 		return date_naissance;
 	}
@@ -76,7 +89,7 @@ public class Client {
 	}
 	
 	
-	public Client(int Id_Cl,String N,String Pr,Boolean S,double T,  Region r,Calendar a)
+	public Client(int Id_Cl,String N,String Pr,Boolean S,double T,  Region r,Calendar a,String email,String password)
 	{
 		 Id_Client =Id_Cl;
 		 Nom = N;
@@ -85,6 +98,9 @@ public class Client {
 		 Tempareture=T;
 		 region = r;
 		 date_naissance=a;
+		 cmptCompte=new Compte(email, password);
+		 maladies=new Vector<Maladie_chronique>();
+		 
 	}
 	
 	public String toString() {

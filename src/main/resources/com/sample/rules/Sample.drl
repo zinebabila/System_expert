@@ -1,10 +1,10 @@
 package com.sample.rules
-import fstm.projet.model.Diagnostic;
-import fstm.projet.model.Symptoms;
-import fstm.projet.model.Client;
-import fstm.projet.model.Region;
-import fstm.projet.model.Docteur;
-import fstm.projet.model.Maladie_chronique;
+import fstm.projet.model.bo.Diagnostic;
+import fstm.projet.model.bo.Symptoms;
+import fstm.projet.model.bo.Client;
+import fstm.projet.model.bo.Region;
+import fstm.projet.model.bo.Docteur;
+import fstm.projet.model.bo.Maladie_chronique;
 rule "Regle 1"
     when
       G:Diagnostic( get_possi_presence() == 0.0  )

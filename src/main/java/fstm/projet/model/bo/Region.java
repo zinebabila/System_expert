@@ -1,6 +1,8 @@
-package fstm.projet.model;
+package fstm.projet.model.bo;
 
-public class Region {
+import java.io.Serializable;
+
+public class Region implements Serializable  {
  private int id_RE;
  private String nom_region;
  private int nombre_deces;

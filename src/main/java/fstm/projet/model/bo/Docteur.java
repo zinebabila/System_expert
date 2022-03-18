@@ -1,6 +1,8 @@
-package fstm.projet.model;
+package fstm.projet.model.bo;
 
-public class Docteur {
+import java.io.Serializable;
+
+public class Docteur implements Serializable  {
 	int Id_Doc;
 	String Nom;
 	String Prenom;

@@ -1,12 +1,13 @@
-package fstm.projet.model;
+package fstm.projet.model.bo;
 
+import java.io.Serializable;
 import java.util.Vector;
 
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 
-public class Diagnostic {
+public class Diagnostic implements Serializable {
 
 	    	private int num_diag;
 	    	public Vector<Symptoms> Mysymtoms;
@@ -60,6 +61,9 @@ public class Diagnostic {
 	    		d.setRemplie(true);
 	    		d.setMsg("Ce patient est une cas d'urgent voici ces informations"+MyClient);
 	    		
+	    	}
+	    	public String toString() {
+	    		return Mysymtoms.toString();
 	    	}
 	    
 }

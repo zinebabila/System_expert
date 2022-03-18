@@ -1,6 +1,8 @@
-package fstm.projet.model;
+package fstm.projet.model.bo;
 
-public class Symptoms {
+import java.io.Serializable;
+
+public class Symptoms implements Serializable  {
     	public String designation;
     	public int id_Sym;
     

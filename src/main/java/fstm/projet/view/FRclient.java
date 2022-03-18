@@ -13,8 +13,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-import fstm.projet.model.Client;
-import fstm.projet.model.DroolsTest;
+import fstm.projet.model.bo.Client;
+import fstm.projet.model.bo.DroolsTest;
+
 import com.toedter.calendar.JDateChooser;
 
 import fstm.projet.controller.Diagnostic_CTR;

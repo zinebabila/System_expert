@@ -10,5 +10,7 @@
 	<classpathentry kind="con" path="DROOLS/Drools"/>
 	<classpathentry kind="lib" path="C:/slf4j-simple-1.7.25.jar"/>
 	<classpathentry kind="lib" path="jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Lenovo/Downloads/mongo-java-driver-2.11.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Lenovo/Downloads/java-json.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

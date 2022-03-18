@@ -7,11 +7,12 @@ import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
-import fstm.projet.model.Client;
-import fstm.projet.model.DroolsTest;
-import fstm.projet.model.Maladie_chronique;
-import fstm.projet.model.Symptoms;
 
+import fstm.projet.controller.Diagnostic_CTR;
+import fstm.projet.model.bo.Client;
+import fstm.projet.model.bo.DroolsTest;
+import fstm.projet.model.bo.Maladie_chronique;
+import fstm.projet.model.bo.Symptoms;
 
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
@@ -62,7 +63,7 @@ public class Acueil extends JFrame {
 
     
 
-    public Acueil(fstm.projet.model.Client c) {
+    public Acueil(fstm.projet.model.bo.Client c) {
 		// TODO Auto-generated constructor stub
     	myclient=c;
     	initComponents();
@@ -94,29 +95,7 @@ public class Acueil extends JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         m = new DefaultListModel<Symptoms>();
-        m.addElement(new Symptoms("fievre",1));
-    	m.addElement(new Symptoms("fatigue",2));
-    	m.addElement(new Symptoms("toux seche",3));
-    	m.addElement(new Symptoms("congestion nasal",4));
-    	m.addElement(new Symptoms("écoulement nasal",5));
-    	m.addElement(new Symptoms("maux de gorge",6));
-    	m.addElement(new Symptoms("diarrhé",7));
-    	m.addElement(new Symptoms("dyspnée",8));
-    	m.addElement(new Symptoms("frissons",9));
-    	m.addElement(new Symptoms("douleurs musculaires",10));
-    	m.addElement(new Symptoms("maux de tete",11));
-    	m.addElement(new Symptoms("gorge sèche",12));
-    	m.addElement(new Symptoms("perte de goût",13));
-    	m.addElement(new Symptoms("perte del'odorat",14));
-    	m.addElement(new Symptoms("essouflement",15));
-    	m.addElement(new Symptoms("confusion",16));
-    	m.addElement(new Symptoms("chute",17));
-    	m.addElement(new Symptoms("nausée",18));
-    	m.addElement(new Symptoms("vomissement",19));
-    	m.addElement(new Symptoms("contact-covid19",20));
-    	m.addElement(new Symptoms("conjonctivite",21));
-    	m.addElement(new Symptoms("tremblement_répété",22));
-       
+        m.addAll(Diagnostic_CTR.afficheSy());
         jList1.setModel(m);
         jScrollPane1.setViewportView(jList1);
         m2 = new DefaultListModel<>();
@@ -287,7 +266,7 @@ public class Acueil extends JFrame {
         	malad.add(new Maladie_chronique(3,"diabatique"));
         }
        
-        
+        Diagnostic_CTR.diagoniser(myclient, listSelectionner, malad);
 		
 		/*Resul.setText(resu*100 + " %100");
 		if(d.isEnvoy()==true)

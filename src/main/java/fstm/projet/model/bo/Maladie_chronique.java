@@ -1,6 +1,8 @@
-package fstm.projet.model;
+package fstm.projet.model.bo;
 
-public class Maladie_chronique {
+import java.io.Serializable;
+
+public class Maladie_chronique implements Serializable {
 	int id_maladie;
 	String nom;
 	public int getId_maladie() {

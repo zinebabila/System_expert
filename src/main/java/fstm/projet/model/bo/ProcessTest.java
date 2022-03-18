@@ -1,4 +1,4 @@
-package fstm.projet.model;
+package fstm.projet.model.bo;
 
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;

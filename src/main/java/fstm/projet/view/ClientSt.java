@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Vector;
 
@@ -18,6 +19,9 @@ import javax.swing.border.EmptyBorder;
 
 import fstm.projet.controller.Diagnostic_CTR;
 import fstm.projet.model.*;
+import fstm.projet.model.bo.Client;
+import fstm.projet.model.bo.Region;
+
 import com.toedter.calendar.JDateChooser;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
@@ -45,7 +49,8 @@ public class ClientSt extends JFrame {
 	        		try {
 	        			T= Double.parseDouble(jTextField2.getText());	
 	        			date= (Calendar) jDateChooser1.getCalendar();
-	          		    Client c= new Client(1,"Ahbella","Houda",true, T,   r, date);
+	          		    Client c= new Client(1,"Ahbella","Houda",true, T,   r, date,"houda@gmail.com","houda123");
+	          		    Diagnostic_CTR.insertClient(c);
 	  				if(r==null)
 	  				{
 	  				  JOptionPane.showMessageDialog(jButton1, "Vous n'avez pas précisez la région", "Warnings", JOptionPane.ERROR_MESSAGE);
@@ -62,6 +67,7 @@ public class ClientSt extends JFrame {
 	        		}
 	        		catch(Exception EX) {
 	        			JOptionPane.showMessageDialog(jButton1, "Temperature invalide ", "Warnings", JOptionPane.ERROR_MESSAGE);
+	        			System.out.println(EX.toString());
 	        		 }
 	        	}
 	        });
@@ -92,54 +98,8 @@ public class ClientSt extends JFrame {
 	        jLabel2.setText("Date de naissance");
 	        jLabel3.setText("Region");
 	        	DefaultComboBoxModel<Region> M = new DefaultComboBoxModel<Region>();
-	        Vector<Region> regions = new Vector<Region>();
-	    	Region r1=new Region("Tanger-Tétouan-Al Hoceïma",1);regions.add(r1);
-	    	r1.setNombre_contamines(600); r1.setNombre_deces(77); r1.setNombre_geuris(200); r1.setNombre_habitant(100000);
-	    	
-	    	Region r2=new Region("L'Oriental",2); regions.add(r2);
-	    	r2.setNombre_contamines(600); r2.setNombre_deces(77); r2.setNombre_geuris(200); r2.setNombre_habitant(100000);
-	    	
-	    	Region r3=new Region("Fès-Meknès",3);
-	    	regions.add(r3);
-	    	r3.setNombre_contamines(600); r3.setNombre_deces(77); r3.setNombre_geuris(200); r3.setNombre_habitant(100000);
-	    	
-	    	Region r4=new Region("Rabat-Salé-Kénitra",4);
-	    	regions.add(r4);
-	    	r4.setNombre_contamines(600); r4.setNombre_deces(77); r4.setNombre_geuris(200); r4.setNombre_habitant(100000);
-	    	
-	    	Region r5=new Region("Béni Mellal-Khénifra",5);
-	    	regions.add(r5);
-	    	r5.setNombre_contamines(600); r5.setNombre_deces(77); r5.setNombre_geuris(200); r5.setNombre_habitant(100000);
-	    	
-	    	Region r6=new Region("Casablanca-Settat",6);
-	    	regions.add(r6);
-	    	r6.setNombre_contamines(600); r6.setNombre_deces(77); r6.setNombre_geuris(200); r6.setNombre_habitant(100000);
-	    	
-	    	Region r7=new Region("Marrakech-Safi",7);
-	    	regions.add(r7);
-	    	r1.setNombre_contamines(600); r7.setNombre_deces(77); r7.setNombre_geuris(200); r7.setNombre_habitant(100000);
-	    	
-	    	Region r8=new Region("Drâa-Tafilalet",8);
-	    	regions.add(r8);
-	    	r1.setNombre_contamines(600); r8.setNombre_deces(77); r8.setNombre_geuris(200); r8.setNombre_habitant(100000);
-	    	
-	    	Region r9=new Region("Souss-Massa",9);
-	    	regions.add(r9);
-	    	r1.setNombre_contamines(600); r9.setNombre_deces(77); r9.setNombre_geuris(200); r9.setNombre_habitant(100000);
-	    	
-	    	Region r10=new Region("Guelmim-Oued Noun",10);
-	    	regions.add(r10);
-	    	r1.setNombre_contamines(600); r10.setNombre_deces(77); r10.setNombre_geuris(200); r10.setNombre_habitant(100000);
-	    	
-	    	Region r11=new Region("Laâyoune-Sakia El Hamra",11);
-	    	regions.add(r11);
-	    	r1.setNombre_contamines(600); r11.setNombre_deces(77); r11.setNombre_geuris(200); r11.setNombre_habitant(100000);
-	    	
-	    	Region r12=new Region("Dakhla-Oued Ed-Dahab",12);
-	    	regions.add(r12);
-	    	r1.setNombre_contamines(600); r12.setNombre_deces(77); r12.setNombre_geuris(200); r12.setNombre_habitant(100000);
-	    	
-	  
+	        ArrayList<Region> regions = Diagnostic_CTR.afficheRe();
+	    
 	        M.addAll(regions);
 	        jComboBox1.setModel(M);
 	        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
