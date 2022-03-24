@@ -8,6 +8,24 @@ public class Client implements Serializable {
 	int Id_Client;
 	String Nom;
 	String Prenom;
+	int age;
+	public int getage() {
+		int age = -1;
+		   Calendar today= Calendar.getInstance();
+		 
+			if (date_naissance.after(today)==false)
+			{	
+			
+			age = today.get(Calendar.YEAR) - date_naissance.get(Calendar.YEAR);
+			}
+	      
+	   	
+		  return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+
 	Boolean Sexe;
 	Region region;
 	Calendar date_naissance;
@@ -25,25 +43,24 @@ public class Client implements Serializable {
 	}
 
 	
+	public Client(String nom, String prenom, Boolean sexe, Calendar date_naissance,Compte cmp) {
+		super();
+		Nom = nom;
+		Prenom = prenom;
+		Sexe = sexe;
+		this.date_naissance = date_naissance;
+		this.cmptCompte=cmp;
+	}
 	public Calendar getDate_naissance() {
 		return date_naissance;
+	}
+	public Client() {
+		super();
 	}
 	public void setDate_naissance(Calendar   date_naissance) {
 		this.date_naissance = date_naissance;
 	}
-   public int getage() {
-	   int age = -1;
-	   Calendar today= Calendar.getInstance();
-	 
-		if (date_naissance.after(today)==false)
-		{	
-		
-		age = today.get(Calendar.YEAR) - date_naissance.get(Calendar.YEAR);
-		}
-      
-   	
-	  return age;
-   }
+   
 
 	public Region getRegion() {
 		return region;

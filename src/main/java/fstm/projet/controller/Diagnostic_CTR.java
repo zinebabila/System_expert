@@ -1,10 +1,12 @@
 package fstm.projet.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Vector;
 
 import fstm.projet.*;
 import fstm.projet.model.bo.Client;
+import fstm.projet.model.bo.Compte;
 import fstm.projet.model.bo.Diagnostic;
 import fstm.projet.model.bo.Docteur;
 import fstm.projet.model.bo.DroolsTest;
@@ -67,12 +69,21 @@ public static ArrayList<Region> afficheRe(){
 	DAORegion deDaoRegion=new DAORegion();
 	return deDaoRegion.retreiveR();
 }
-public static void insertClient(Client cli) {
+public static void insertClient(String nom,String prenom,Boolean sexe,Calendar date,String email,String password) {
+	Compte cmpCompte=new Compte(email, password);
+	Client cli=new Client(nom, prenom, sexe, date, cmpCompte);
 	DAOClient daoClient=new DAOClient();
 	daoClient.insert(cli);
 }
-
-
+public static void updateClient(String email,double temp,Region reg) {
+	DAOClient daoClient=new DAOClient();
+	daoClient.updateClient(email, temp, reg);
+}
+public static Client authClient (String email,String passString){
+	DAOClient daoClient=new DAOClient();
+return daoClient.Authentification(email, passString);
+	
+}
 
 
 	

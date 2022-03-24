@@ -38,7 +38,6 @@ public class ClientSt extends JFrame {
 	        jPanel1 = new javax.swing.JPanel();
 	        jLabel6 = new javax.swing.JLabel();
 	        jLabel1 = new javax.swing.JLabel();
-	        jLabel2 = new javax.swing.JLabel();
 	        jLabel3 = new javax.swing.JLabel();
 	        jComboBox1 = new javax.swing.JComboBox<>();
 	        jTextField2 = new javax.swing.JTextField();
@@ -48,9 +47,10 @@ public class ClientSt extends JFrame {
 	        	public void actionPerformed(ActionEvent e) {
 	        		try {
 	        			T= Double.parseDouble(jTextField2.getText());	
-	        			date= (Calendar) jDateChooser1.getCalendar();
+	        			//date= (Calendar) jDateChooser1.getCalendar();
 	          		    Client c= new Client(1,"Ahbella","Houda",true, T,   r, date,"houda@gmail.com","houda123");
-	          		    Diagnostic_CTR.insertClient(c);
+	          		   //Diagnostic_CTR.insertClient(c);
+	        			//Diagnostic_CTR.updateClient(getName(), T, r);
 	  				if(r==null)
 	  				{
 	  				  JOptionPane.showMessageDialog(jButton1, "Vous n'avez pas précisez la région", "Warnings", JOptionPane.ERROR_MESSAGE);
@@ -71,7 +71,6 @@ public class ClientSt extends JFrame {
 	        		 }
 	        	}
 	        });
-	        jDateChooser1 = new com.toedter.calendar.JDateChooser();
 
 	        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -95,7 +94,6 @@ public class ClientSt extends JFrame {
 	        );
 
 	        jLabel1.setText("Temperature");
-	        jLabel2.setText("Date de naissance");
 	        jLabel3.setText("Region");
 	        	DefaultComboBoxModel<Region> M = new DefaultComboBoxModel<Region>();
 	        ArrayList<Region> regions = Diagnostic_CTR.afficheRe();
@@ -130,24 +128,19 @@ public class ClientSt extends JFrame {
 	        							.addGap(157)
 	        							.addComponent(jButton1))
 	        						.addGroup(layout.createSequentialGroup()
-	        							.addGap(136)
-	        							.addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE))
-	        						.addGroup(layout.createSequentialGroup()
 	        							.addGap(90)
-	        							.addGroup(layout.createParallelGroup(Alignment.LEADING)
-	        								.addComponent(jDateChooser1, GroupLayout.PREFERRED_SIZE, 199, GroupLayout.PREFERRED_SIZE)
-	        								.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
-	        									.addComponent(jComboBox1, GroupLayout.PREFERRED_SIZE, 199, GroupLayout.PREFERRED_SIZE)
-	        									.addComponent(jTextField2)))))
+	        							.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+	        								.addComponent(jComboBox1, GroupLayout.PREFERRED_SIZE, 199, GroupLayout.PREFERRED_SIZE)
+	        								.addComponent(jTextField2))))
 	        					.addContainerGap(106, Short.MAX_VALUE))
 	        				.addGroup(layout.createSequentialGroup()
-	        					.addPreferredGap(ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
+	        					.addPreferredGap(ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
 	        					.addComponent(jLabel3, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
 	        					.addGap(151))))
 	        );
 	        layout.setVerticalGroup(
-	        	layout.createParallelGroup(Alignment.TRAILING)
-	        		.addGroup(Alignment.LEADING, layout.createSequentialGroup()
+	        	layout.createParallelGroup(Alignment.LEADING)
+	        		.addGroup(layout.createSequentialGroup()
 	        			.addGap(39)
 	        			.addComponent(jLabel1)
 	        			.addPreferredGap(ComponentPlacement.RELATED)
@@ -158,10 +151,7 @@ public class ClientSt extends JFrame {
 	        					.addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 	        					.addContainerGap())
 	        				.addGroup(layout.createSequentialGroup()
-	        					.addComponent(jLabel2)
-	        					.addPreferredGap(ComponentPlacement.RELATED)
-	        					.addComponent(jDateChooser1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-	        					.addGap(15)
+	        					.addGap(53)
 	        					.addComponent(jLabel3, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
 	        					.addPreferredGap(ComponentPlacement.RELATED)
 	        					.addComponent(jComboBox1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -207,9 +197,7 @@ public class ClientSt extends JFrame {
 	    Calendar date;
 	    private JButton jButton1;
 	    private javax.swing.JComboBox<Region> jComboBox1;
-	    private JDateChooser jDateChooser1;
 	    private javax.swing.JLabel jLabel1;
-	    private javax.swing.JLabel jLabel2;
 	    private javax.swing.JLabel jLabel3;
 	    private javax.swing.JLabel jLabel6;
 	    private javax.swing.JOptionPane jOptionPane1;
