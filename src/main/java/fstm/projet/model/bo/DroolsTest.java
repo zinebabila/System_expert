@@ -3,7 +3,7 @@ package fstm.projet.model.bo;
 import java.util.Vector;
 
 public class DroolsTest {
-	Docteur doc;
+	
     public static final void main(String[] args) {
 
     }
@@ -12,8 +12,9 @@ public class DroolsTest {
     	return d.traiter();
     	
     }
-    public boolean isEnvoy()
+    public boolean isEnvoy(Docteur doc)
     {
+    	
     	return doc.isRemplie();
     }
     

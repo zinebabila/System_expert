@@ -28,7 +28,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Home extends JFrame {
+public class Authen extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField emailField;
@@ -40,7 +40,7 @@ public class Home extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-					Home frame = new Home();
+					Authen frame = new Authen();
 					frame.setUndecorated(true);
 					frame.setVisible(true);
 	}	
@@ -50,7 +50,7 @@ public class Home extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Home() {
+	public Authen() {
 		setBackground(Color.WHITE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 729, 476);
@@ -89,7 +89,7 @@ public class Home extends JFrame {
 				
 				int x = arg0.getXOnScreen();
 	            int y = arg0.getYOnScreen();
-	            Home.this.setLocation(x - xx, y - xy);  
+	            Authen.this.setLocation(x - xx, y - xy);  
 			}
 		});
 		label.setBounds(-38, 0, 420, 275);
@@ -125,7 +125,7 @@ public class Home extends JFrame {
 		buttoncreercompte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-			new ClientSt().setVisible(true);	
+			new FRCreerCom().setVisible(true);	
 				
 				
 			}
@@ -148,7 +148,8 @@ public class Home extends JFrame {
 				  String emailString =emailField.getText();
 				  String passString=textpasswd.getText();
 				  if(Diagnostic_CTR.authClient(emailString, passString)!=null)
-					  JOptionPane.showMessageDialog(null, "valide");
+					 // JOptionPane.showMessageDialog(null, "valide");
+					  new CHoix((Client)Diagnostic_CTR.authClient(emailString, passString)).setVisible(true);
 				  else {
 				  JOptionPane.showMessageDialog(null, "invalide");}
 				   }	   

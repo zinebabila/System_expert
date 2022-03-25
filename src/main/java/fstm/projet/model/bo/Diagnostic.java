@@ -1,6 +1,8 @@
 package fstm.projet.model.bo;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import org.kie.api.KieServices;
@@ -14,17 +16,64 @@ public class Diagnostic implements Serializable {
 	    	private double resultat=0;
 	    	public Client MyClient;
 	    	public Docteur d;
-	    	public Diagnostic(int id , Client c) {
+	    	private LocalDate date;
+	    	
+			public LocalDate getDate() {
+				return date;
+			}
+			public void setDate(LocalDate date) {
+				this.date = date;
+			}
+			public Diagnostic(int id , Client c) {
 	    		num_diag=id;
 	    		this.Mysymtoms = new Vector<Symptoms>();
 	    		this.MyClient=c;
 	    		
+	    		
 	    	}
-	    	public Diagnostic(int id , Client c, Vector<Symptoms> sy, Docteur f) {
+	    	public Diagnostic(Vector<Symptoms> symptoms,double res,Client c,LocalDate date) {
+	    		Mysymtoms=symptoms;
+	    		resultat=res;
+	    		MyClient=c;
+	    		this.date=date;
+	    		
+	    	}
+	    	public int getNum_diag() {
+				return num_diag;
+			}
+			public void setNum_diag(int num_diag) {
+				this.num_diag = num_diag;
+			}
+			public Vector<Symptoms> getMysymtoms() {
+				return Mysymtoms;
+			}
+			public void setMysymtoms(Vector<Symptoms> mysymtoms) {
+				Mysymtoms = mysymtoms;
+			}
+			public Client getMyClient() {
+				return MyClient;
+			}
+			public void setMyClient(Client myClient) {
+				MyClient = myClient;
+			}
+			public Docteur getD() {
+				return d;
+			}
+			public void setD(Docteur d) {
+				this.d = d;
+			}
+			public double getResultat() {
+				return resultat;
+			}
+			public void setResultat(double resultat) {
+				this.resultat = resultat;
+			}
+			public Diagnostic(int id , Client c, Vector<Symptoms> sy, Docteur f) {
 	    		num_diag=id;
 	    		this.Mysymtoms = sy;
 	    		this.MyClient=c;
 	    		this.d=f;
+	    		this.date=LocalDate.now();
 	    	}
 	    	
 	    	public double get_possi_presence()
@@ -62,8 +111,9 @@ public class Diagnostic implements Serializable {
 	    		d.setMsg("Ce patient est une cas d'urgent voici ces informations"+MyClient);
 	    		
 	    	}
-	    	public String toString() {
-	    		return Mysymtoms.toString();
-	    	}
+	    	@Override
+			public String toString() {
+				return "Diagnostic [num_diag=" + num_diag + ", Mysymtoms=" + Mysymtoms + ", resultat=" + resultat + "]";
+			}
 	    
 }

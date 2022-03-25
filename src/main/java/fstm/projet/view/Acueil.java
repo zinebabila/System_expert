@@ -266,7 +266,7 @@ public class Acueil extends JFrame {
         	malad.add(new Maladie_chronique(3,"diabatique"));
         }
        
-        Diagnostic_CTR.diagoniser(myclient, listSelectionner, malad);
+      Diagnostic_CTR.diagoniser(myclient, listSelectionner, malad);
 		
 		/*Resul.setText(resu*100 + " %100");
 		if(d.isEnvoy()==true)

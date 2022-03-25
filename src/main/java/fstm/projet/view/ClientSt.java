@@ -28,11 +28,18 @@ import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class ClientSt extends JFrame {
+	 private Region r = null;
+	    double T;
+	    private JButton jButton1;
+	    private javax.swing.JComboBox<Region> jComboBox1;
+	    private javax.swing.JLabel jLabel1;
+	    private javax.swing.JLabel jLabel3;
+	    private javax.swing.JLabel jLabel6;
+	    private javax.swing.JOptionPane jOptionPane1;
+	    private javax.swing.JPanel jPanel1;
+	    private javax.swing.JTextField jTextField2;
 	
-	 public ClientSt() { initComponents();}
-
-	    @SuppressWarnings("unchecked")
-	    private void initComponents() {
+	 public ClientSt(Client c) {
 
 	        jOptionPane1 = new javax.swing.JOptionPane();
 	        jPanel1 = new javax.swing.JPanel();
@@ -48,9 +55,9 @@ public class ClientSt extends JFrame {
 	        		try {
 	        			T= Double.parseDouble(jTextField2.getText());	
 	        			//date= (Calendar) jDateChooser1.getCalendar();
-	          		    Client c= new Client(1,"Ahbella","Houda",true, T,   r, date,"houda@gmail.com","houda123");
+	          		   // Client c= new Client(1,"Ahbella","Houda",true, T,   r, date,"houda@gmail.com","houda123");
 	          		   //Diagnostic_CTR.insertClient(c);
-	        			//Diagnostic_CTR.updateClient(getName(), T, r);
+	        			
 	  				if(r==null)
 	  				{
 	  				  JOptionPane.showMessageDialog(jButton1, "Vous n'avez pas précisez la région", "Warnings", JOptionPane.ERROR_MESSAGE);
@@ -58,11 +65,11 @@ public class ClientSt extends JFrame {
 	  				else if(T<38){
 	  					JOptionPane.showMessageDialog(jButton1, "Vous n'etes pas malade", "Warnings", JOptionPane.ERROR_MESSAGE);
 	  				}
-	  				else if(c.getage()==-1)
-	  					JOptionPane.showMessageDialog(jButton1, "date de naissance invalide", "Warnings", JOptionPane.ERROR_MESSAGE);
 	  				else
 	  				{
-	  					new Diagnostic_CTR(c);
+	  					System.out.println(c);
+	  					Diagnostic_CTR.updateClient(c, T, r);
+	  					
 	  				}
 	        		}
 	        		catch(Exception EX) {
@@ -189,19 +196,7 @@ public class ClientSt extends JFrame {
 	        //</editor-fold>
 
 	        /* Create and display the form */
-	        java.awt.EventQueue.invokeLater(new Runnable() {
-	            public void run() {
-	                new ClientSt().setVisible(true); }});}
-	    private Region r = null;
-	    double T;
-	    Calendar date;
-	    private JButton jButton1;
-	    private javax.swing.JComboBox<Region> jComboBox1;
-	    private javax.swing.JLabel jLabel1;
-	    private javax.swing.JLabel jLabel3;
-	    private javax.swing.JLabel jLabel6;
-	    private javax.swing.JOptionPane jOptionPane1;
-	    private javax.swing.JPanel jPanel1;
-	    private javax.swing.JTextField jTextField2;
+	       
+	    }
 
 }

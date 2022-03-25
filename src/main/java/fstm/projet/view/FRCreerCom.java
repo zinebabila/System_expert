@@ -18,6 +18,7 @@ import com.toedter.calendar.JDateChooser;
 import fstm.projet.controller.Diagnostic_CTR;
 import fstm.projet.model.bo.Diagnostic;
 
+import javax.ejb.HomeHandle;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -125,12 +126,13 @@ public class FRCreerCom extends JFrame {
 				String nomString=textField.getText();
 				String preString=textField_1.getText();
 				if(rdbtnNewRadioButton.isSelected()==true) { sexe=true;}
-				if(rdbtnNewRadioButton_1.isSelected()==true) { sexe=true;}
+				if(rdbtnNewRadioButton_1.isSelected()==true) { sexe=false;}
 				date= (Calendar) dateChooser.getCalendar();
 				String emailString =textField_2.getText();
 				String passString=textField_3.getText();
 		
 			 Diagnostic_CTR.insertClient(nomString, preString, sexe, date, emailString, passString);
+			 new Authen().setVisible(true);
 				
 				
 				

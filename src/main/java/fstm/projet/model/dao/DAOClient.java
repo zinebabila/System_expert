@@ -1,9 +1,11 @@
 package fstm.projet.model.dao;
 
 import java.net.UnknownHostException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,21 +30,15 @@ public class DAOClient implements IDAOClient {
 		DB baseDb=Connexion.getConnex();
 DBCollection collection=baseDb.getCollection("Client");
 
+ArrayList< DBObject> diagnostiques=new ArrayList<DBObject>();
 
-ArrayList< DBObject> maladiesArrayList=new ArrayList<DBObject>();
-for(Maladie_chronique s:client.getMaladies()) {
-		DBObject sYSDbObject=new BasicDBObject("Nom_maladie",s.getNom());
-		maladiesArrayList.add(sYSDbObject);
-}
 		DBObject doc = new BasicDBObject("Nom",client.getNom())
 				 .append("prenom",client.getPrenom())
 				 .append("Sexe",client.getSexe())
-				 .append("Temperature", client.getTempareture())
 				 .append("Age", client.getage())
-				 .append("Region", client.getRegion().getId_RE())
 				 .append("Email", client.getCmptCompte().getEmail())
 				 .append("Password", client.getCmptCompte().getPassword())
-				 .append("Maladie_chronique", maladiesArrayList);
+				 .append("Diagnostiques", diagnostiques );
 				
 				 collection.insert(doc);
 	
@@ -64,19 +60,21 @@ for(Maladie_chronique s:client.getMaladies()) {
 		collection.update(seaBasicDBObject, newDoc);
 	}
 	@Override
-	public void updateClient(String email,double temp,Region reg) {
+	public void updateClient(Client c,double temp,Region reg) {
 		DB baseDb=Connexion.getConnex();
 		DBCollection collection=baseDb.getCollection("Client");
 		
-		
+		System.out.println(c.getCmptCompte().getEmail());
 		
 	DBObject sYSDbObject=new BasicDBObject("Temperature",temp).append("Region",reg.getId_RE());
 				
 		
 		BasicDBObject newDoc=new BasicDBObject();
 		newDoc.append("$set",sYSDbObject );
-		BasicDBObject seaBasicDBObject=new BasicDBObject().append("Email", email);
+		BasicDBObject seaBasicDBObject=new BasicDBObject().append("Email", c.getCmptCompte().getEmail());
 		collection.update(seaBasicDBObject, newDoc);
+		c.setTempareture(temp);
+		c.setRegion(reg);
 		
 	}
 	@Override
@@ -108,15 +106,36 @@ for(Maladie_chronique s:client.getMaladies()) {
 		}
 		else {
 			Client cli=null;
+			Compte cmpCompte=null;
+			ArrayList<Diagnostic> diagnostics=new ArrayList<>();
 			
 				DBObject object2=cursor.next();
 				try {
 					JSONObject jsonObject=new JSONObject(JSON.serialize(object2));
 					 cli=new Client();
+					 cmpCompte=new Compte();
+					// cli.setId_Client(jsonObject.getInt("_id"));
 					cli.setAge(jsonObject.getInt("Age"));
 					cli.setNom(jsonObject.getString("Nom"));
 					cli.setPrenom(jsonObject.getString("prenom"));
 					cli.setSexe(jsonObject.getBoolean("Sexe"));
+					cmpCompte.setEmail(jsonObject.getString("Email"));
+					cmpCompte.setPassword(jsonObject.getString("Password"));
+					cli.setCmptCompte(cmpCompte);
+				JSONArray json=	jsonObject.getJSONArray("Diagnostiques");
+				for(int i=0;i<json.length();i++) {
+					JSONArray json2= json.getJSONObject(i).getJSONArray("Mysymtoms");
+					Vector<Symptoms> symptoms=new Vector<>();
+					for(int j=0;j<json2.length();j++) {
+						
+						symptoms.add(new Symptoms(json2.getJSONObject(j).getString("designation"),json2.getJSONObject(j).getInt("_idSy") ));
+					}
+					
+					diagnostics.add(new Diagnostic(symptoms,json.getJSONObject(i).getDouble("resultat"),cli,LocalDate.parse(json.getJSONObject(i).getString("date"))));
+				}
+				cli.setDiagnostics(diagnostics);	
+					
+					
 					
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
@@ -129,5 +148,28 @@ for(Maladie_chronique s:client.getMaladies()) {
 				return cli;	
 		}
 	}
-
+	
+	public void updateDiagnostique(Diagnostic diag,String email) {
+	DB baseDb=Connexion.getConnex();
+	DBCollection collection=baseDb.getCollection("Client");
+	
+	ArrayList< DBObject> symptomsArrayList=new ArrayList<DBObject>();
+	for(Symptoms s:diag.Mysymtoms) {
+		DBObject sYSDbObject=new BasicDBObject("designation",s.designation).append("_idSy", s.id_Sym);
+		symptomsArrayList.add(sYSDbObject);
+	}
+		DBObject doc = new BasicDBObject("Mysymtoms", symptomsArrayList)
+				       .append("resultat", diag.get_possi_presence())
+				       .append("date", diag.getDate().toString());
+	
+			
+	BasicDBObject newDoc=new BasicDBObject();
+	
+		newDoc.append("$push",new BasicDBObject().append("Diagnostiques",doc) );
+	BasicDBObject seaBasicDBObject=new BasicDBObject().append("Email", email);
+	collection.update(seaBasicDBObject, newDoc);
+}
+	
+	
+	
 }

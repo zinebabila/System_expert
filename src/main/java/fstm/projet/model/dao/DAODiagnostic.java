@@ -24,7 +24,8 @@ public class DAODiagnostic implements IDAODiagnostic{
 		}
 			DBObject doc = new BasicDBObject("_idclient",d.MyClient.getId_Client())
 					 .append("Mysymtoms", symptomsArrayList)
-					 .append("resultat", d.get_possi_presence());
+					 .append("resultat", d.get_possi_presence())
+					 .append("date", d.getDate().toString());
 					
 					 collection.insert(doc);
 		

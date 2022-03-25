@@ -4,6 +4,9 @@ public class Compte {
 private String Email;
 private String password;
 
+public Compte() {
+	super();
+}
 public String getEmail() {
 	return Email;
 }
