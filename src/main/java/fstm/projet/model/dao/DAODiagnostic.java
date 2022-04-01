@@ -8,6 +8,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 
 import fstm.projet.model.bo.Diagnostic;
+import fstm.projet.model.bo.Maladie_chronique;
 import fstm.projet.model.bo.Symptoms;
 
 public class DAODiagnostic implements IDAODiagnostic{
@@ -22,9 +23,11 @@ public class DAODiagnostic implements IDAODiagnostic{
 			DBObject sYSDbObject=new BasicDBObject("designation",s.designation);
 			symptomsArrayList.add(sYSDbObject);
 		}
+		
 			DBObject doc = new BasicDBObject("_idclient",d.MyClient.getId_Client())
 					 .append("Mysymtoms", symptomsArrayList)
 					 .append("resultat", d.get_possi_presence())
+					 
 					 .append("date", d.getDate().toString());
 					
 					 collection.insert(doc);

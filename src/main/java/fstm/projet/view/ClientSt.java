@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Vector;
@@ -103,7 +104,16 @@ public class ClientSt extends JFrame {
 	        jLabel1.setText("Temperature");
 	        jLabel3.setText("Region");
 	        	DefaultComboBoxModel<Region> M = new DefaultComboBoxModel<Region>();
-	        ArrayList<Region> regions = Diagnostic_CTR.afficheRe();
+	        ArrayList<Region> regions=null;
+			try {
+				regions = Diagnostic_CTR.afficheRe();
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 	    
 	        M.addAll(regions);
 	        jComboBox1.setModel(M);

@@ -2,6 +2,7 @@ package fstm.projet.view;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.util.Vector;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
@@ -19,6 +20,8 @@ import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JLabel;
 import java.awt.Color;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
 
 public class Acueil extends JFrame {
 
@@ -75,7 +78,6 @@ public class Acueil extends JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<Symptoms>();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -95,12 +97,15 @@ public class Acueil extends JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         m = new DefaultListModel<Symptoms>();
-        m.addAll(Diagnostic_CTR.afficheSy());
+        try {
+			m.addAll(Diagnostic_CTR.afficheSy());
+		} catch (ClassNotFoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         jList1.setModel(m);
         jScrollPane1.setViewportView(jList1);
         m2 = new DefaultListModel<>();
-        jList2.setModel(m2);
-        jScrollPane2.setViewportView(jList2);
 
         jButton1.setText(">>");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -166,6 +171,15 @@ public class Acueil extends JFrame {
         
         Resul = new JLabel("");
         Resul.setForeground(Color.RED);
+        jList2 = new javax.swing.JList<>();
+        jList2.setModel(m2);
+        
+        JButton btnNewButton = new JButton("Mes diagnostique");
+        btnNewButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		new ConsulterDiag(myclient).setVisible(true);;
+        	}
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         layout.setHorizontalGroup(
@@ -193,7 +207,9 @@ public class Acueil extends JFrame {
         							.addComponent(jButton3, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         						.addComponent(jButton1, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE))
         					.addGap(18)
-        					.addComponent(jScrollPane2, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)
+        					.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        						.addComponent(jScrollPane2, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(jList2, GroupLayout.PREFERRED_SIZE, 202, GroupLayout.PREFERRED_SIZE))
         					.addGap(42))
         				.addGroup(layout.createSequentialGroup()
         					.addComponent(jLabel1)
@@ -204,6 +220,10 @@ public class Acueil extends JFrame {
         			.addGap(42)
         			.addComponent(Resul, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
         			.addContainerGap(217, Short.MAX_VALUE))
+        		.addGroup(Alignment.TRAILING, layout.createSequentialGroup()
+        			.addContainerGap(536, Short.MAX_VALUE)
+        			.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 162, GroupLayout.PREFERRED_SIZE)
+        			.addGap(34))
         );
         layout.setVerticalGroup(
         	layout.createParallelGroup(Alignment.LEADING)
@@ -211,8 +231,11 @@ public class Acueil extends JFrame {
         			.addContainerGap()
         			.addComponent(jLabel1)
         			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        				.addComponent(jScrollPane2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+        				.addGroup(layout.createSequentialGroup()
+        					.addComponent(jScrollPane2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(jList2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         				.addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 263, GroupLayout.PREFERRED_SIZE)
         				.addGroup(layout.createSequentialGroup()
         					.addComponent(jButton1)
@@ -222,7 +245,7 @@ public class Acueil extends JFrame {
         					.addComponent(jButton2)
         					.addGap(18)
         					.addComponent(jButton3)))
-        			.addPreferredGap(ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+        			.addPreferredGap(ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
         			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
         				.addComponent(jRadioButton1)
         				.addComponent(jRadioButton2)
@@ -233,7 +256,9 @@ public class Acueil extends JFrame {
         			.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
         				.addComponent(Resul, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         				.addComponent(jLabel2, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE))
-        			.addGap(46))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(btnNewButton)
+        			.addGap(19))
         );
         getContentPane().setLayout(layout);
 
@@ -266,7 +291,15 @@ public class Acueil extends JFrame {
         	malad.add(new Maladie_chronique(3,"diabatique"));
         }
        
-      Diagnostic_CTR.diagoniser(myclient, listSelectionner, malad);
+      try {
+		Diagnostic_CTR.diagoniser(myclient, listSelectionner, malad);
+	} catch (ClassNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 		
 		/*Resul.setText(resu*100 + " %100");
 		if(d.isEnvoy()==true)

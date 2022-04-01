@@ -22,6 +22,7 @@ import javax.ejb.HomeHandle;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.Calendar;
 import java.awt.event.ActionEvent;
 
@@ -131,7 +132,15 @@ public class FRCreerCom extends JFrame {
 				String emailString =textField_2.getText();
 				String passString=textField_3.getText();
 		
-			 Diagnostic_CTR.insertClient(nomString, preString, sexe, date, emailString, passString);
+			 try {
+				Diagnostic_CTR.insertClient(nomString, preString, sexe, date, emailString, passString);
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			 new Authen().setVisible(true);
 				
 				

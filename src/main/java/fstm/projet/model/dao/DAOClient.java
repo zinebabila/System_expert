@@ -91,6 +91,7 @@ ArrayList< DBObject> diagnostiques=new ArrayList<DBObject>();
 		return false;
 		
 	}
+	
 	@Override
 	public Client Authentification(String email, String password) {
 		Client client;
@@ -114,14 +115,34 @@ ArrayList< DBObject> diagnostiques=new ArrayList<DBObject>();
 					JSONObject jsonObject=new JSONObject(JSON.serialize(object2));
 					 cli=new Client();
 					 cmpCompte=new Compte();
+					
+					 int id;
 					// cli.setId_Client(jsonObject.getInt("_id"));
 					cli.setAge(jsonObject.getInt("Age"));
 					cli.setNom(jsonObject.getString("Nom"));
 					cli.setPrenom(jsonObject.getString("prenom"));
+					cli.setTempareture(jsonObject.getInt("Temperature"));
 					cli.setSexe(jsonObject.getBoolean("Sexe"));
+					id=jsonObject.getInt("Region");
+					 Region region=new DAORegion().findbyidRegion(id);
+					cli.setRegion(region);
 					cmpCompte.setEmail(jsonObject.getString("Email"));
 					cmpCompte.setPassword(jsonObject.getString("Password"));
 					cli.setCmptCompte(cmpCompte);
+					Vector< Maladie_chronique> chroniques=new Vector<>();
+					JSONArray json3 = null;
+					try {
+						json3 = jsonObject.getJSONArray("Maladie_chronique");
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					for(int j=0;j<json3.length();j++) {
+						
+						chroniques.add(new Maladie_chronique(json3.getJSONObject(j).getString("Nom_maladie") ));
+					}
+					System.out.println(chroniques.get(0));
+					cli.setMaladies(chroniques);
 				JSONArray json=	jsonObject.getJSONArray("Diagnostiques");
 				for(int i=0;i<json.length();i++) {
 					JSONArray json2= json.getJSONObject(i).getJSONArray("Mysymtoms");
@@ -132,6 +153,8 @@ ArrayList< DBObject> diagnostiques=new ArrayList<DBObject>();
 					}
 					
 					diagnostics.add(new Diagnostic(symptoms,json.getJSONObject(i).getDouble("resultat"),cli,LocalDate.parse(json.getJSONObject(i).getString("date"))));
+				  
+				
 				}
 				cli.setDiagnostics(diagnostics);	
 					

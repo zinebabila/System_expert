@@ -1,8 +1,9 @@
 package fstm.projet.model.bo;
 
+import java.io.Serializable;
 import java.util.Vector;
 
-public class DroolsTest {
+public class DroolsTest implements Serializable {
 	
     public static final void main(String[] args) {
 

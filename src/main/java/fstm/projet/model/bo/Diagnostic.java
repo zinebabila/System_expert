@@ -37,6 +37,7 @@ public class Diagnostic implements Serializable {
 	    		MyClient=c;
 	    		this.date=date;
 	    		
+	    		
 	    	}
 	    	public int getNum_diag() {
 				return num_diag;

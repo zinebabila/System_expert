@@ -21,9 +21,12 @@ import javax.swing.JPasswordField;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.HeadlessException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.io.IOException;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -147,11 +150,29 @@ public class Authen extends JFrame {
 				   else { 
 				  String emailString =emailField.getText();
 				  String passString=textpasswd.getText();
-				  if(Diagnostic_CTR.authClient(emailString, passString)!=null)
-					 // JOptionPane.showMessageDialog(null, "valide");
-					  new CHoix((Client)Diagnostic_CTR.authClient(emailString, passString)).setVisible(true);
-				  else {
-				  JOptionPane.showMessageDialog(null, "invalide");}
+				  try {
+					if(Diagnostic_CTR.authClient(emailString, passString)!=null)
+						try {
+							new CHoix((Client)Diagnostic_CTR.authClient(emailString, passString)).setVisible(true);
+						} catch (ClassNotFoundException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					else {
+					  JOptionPane.showMessageDialog(null, "invalide");}
+				} catch (HeadlessException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				   }	   
 			}
 		});

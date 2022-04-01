@@ -133,6 +133,6 @@ public class Client implements Serializable {
 	}
 	
 	public String toString() {
-		return  "Nom: "+getNom()+" Prenom :"+getPrenom()+" Age: "+getage();
+		return  "Nom: "+getNom()+" Prenom :"+getPrenom()+" Age: "+getage()+"temp:"+getTempareture()+"region"+getRegion();
 	}
 }

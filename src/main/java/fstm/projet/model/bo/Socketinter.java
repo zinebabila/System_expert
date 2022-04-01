@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Vector;
 
 public class Socketinter implements Serializable {
-	public Vector<Symptoms> Mysymtoms;
+public Vector<Symptoms> Mysymtoms;
 	
 	public Client MyClient;
 
@@ -13,6 +13,14 @@ public class Socketinter implements Serializable {
 		 MyClient=Clie;
 		
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Socketinter{" +
+				"Mysymtoms=" + Mysymtoms +
+				", MyClient=" + MyClient +
+				'}';
+	}
+
 	
 }

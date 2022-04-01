@@ -1,5 +1,7 @@
 package fstm.projet.model.bo;
 
+import java.io.Serializable;
+
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
@@ -7,7 +9,7 @@ import org.kie.api.runtime.KieSession;
 /**
  * This is a sample file to launch a process.
  */
-public class ProcessTest {
+public class ProcessTest implements Serializable {
 
     public static final void main(String[] args) {
         try {

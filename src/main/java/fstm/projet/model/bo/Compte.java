@@ -1,6 +1,8 @@
 package fstm.projet.model.bo;
 
-public class Compte {
+import java.io.Serializable;
+
+public class Compte implements Serializable {
 private String Email;
 private String password;
 

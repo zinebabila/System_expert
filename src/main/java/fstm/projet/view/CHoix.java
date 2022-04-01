@@ -24,6 +24,7 @@ public class CHoix extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
 	public CHoix(Client c) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

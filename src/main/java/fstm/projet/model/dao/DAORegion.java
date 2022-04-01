@@ -3,6 +3,8 @@ package fstm.projet.model.dao;
 import com.mongodb.*;
 import com.mongodb.util.JSON;
 
+import fstm.projet.model.bo.Client;
+import fstm.projet.model.bo.Compte;
 import fstm.projet.model.bo.Region;
 
 import org.json.JSONArray;
@@ -17,6 +19,31 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class DAORegion {
+	public Region findbyidRegion(int id) {
+		
+			Client client;
+			DB baseDb=Connexion.getConnex();
+			DBCollection collection=baseDb.getCollection("Region");
+			
+			DBObject object=new BasicDBObject("_id",id);
+			
+			
+			DBCursor cursor=collection.find(object);
+			DBObject object2=cursor.next();
+			 Region r=new Region();
+			try {
+				JSONObject jsonObject=new JSONObject(JSON.serialize(object2));
+				
+			
+				r.setId_RE(id);
+				r.setNom_region(jsonObject.getString("nom_region"));
+			}catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		return r;
+	}
         public ArrayList<Region> retreiveR() {
             ArrayList<Region> regions = new ArrayList<Region>();
             DB baseDb=Connexion.getConnex();

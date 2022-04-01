@@ -14,6 +14,10 @@ public class Maladie_chronique implements Serializable {
 	public String getNom() {
 		return nom;
 	}
+	public Maladie_chronique(String nom) {
+		super();
+		this.nom = nom;
+	}
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
