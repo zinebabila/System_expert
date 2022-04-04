@@ -90,7 +90,7 @@ public class DAORegion {
                 BasicDBObject doc = new BasicDBObject();
                 doc.append("nombre_contamines",oo.getInt("Cases"));
                 doc.append("nombre_deces",oo.getInt("Deaths"));
-                doc.append("nombre_habitant",oo.getInt("Recoveries"));
+                doc.append("nombre_geuris",oo.getInt("Recoveries"));
                 BasicDBObject newDocument = new BasicDBObject("$set",doc);
                 BasicDBObject searchQuery = new BasicDBObject().append("_id", i);
                 collection.update(searchQuery,newDocument); 

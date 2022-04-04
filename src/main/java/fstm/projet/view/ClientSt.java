@@ -51,6 +51,7 @@ public class ClientSt extends JFrame {
 	        jTextField2 = new javax.swing.JTextField();
 	        jTextField2.setText("");
 	        jButton1 = new javax.swing.JButton();
+	        
 	        jButton1.addActionListener(new ActionListener() {
 	        	public void actionPerformed(ActionEvent e) {
 	        		try {
@@ -69,6 +70,7 @@ public class ClientSt extends JFrame {
 	  				else
 	  				{
 	  					System.out.println(c);
+	  					setVisible(false);
 	  					Diagnostic_CTR.updateClient(c, T, r);
 	  					
 	  				}

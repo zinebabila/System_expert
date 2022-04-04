@@ -60,8 +60,9 @@ public class Serveur {
 	    {
 	        ServerSocket ss = new ServerSocket(6000);
 	        System.out.println("ServerSocket awaiting connections...");
+	        new StreamController().start();
 	        while(true) {
-				//new StreamController().start();
+				
 	        	 Socket socket  = ss.accept();
 	        	 synchronized(socket){
 					 new SocketController(socket).run();

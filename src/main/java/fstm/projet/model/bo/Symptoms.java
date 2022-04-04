@@ -12,7 +12,7 @@ public class Symptoms implements Serializable  {
     	}
     	public String toString()
     	{
-    		return designation+"  "+id_Sym;
+    		return designation;
     	}
 		public Symptoms() {
 			super();

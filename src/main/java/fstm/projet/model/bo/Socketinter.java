@@ -2,25 +2,29 @@ package fstm.projet.model.bo;
 
 import java.io.Serializable;
 import java.util.Vector;
-
 public class Socketinter implements Serializable {
-public Vector<Symptoms> Mysymtoms;
-	
-	public Client MyClient;
+    public final double temperaturee;
+    public final Region region;
+    public Vector<Symptoms> Mysymtoms;
+    public Vector<Maladie_chronique> mald;
 
-	public Socketinter( Vector<Symptoms> sympo, Client Clie) {
-		 Mysymtoms=sympo;
-		 MyClient=Clie;
-		
-	}
+    public Client MyClient;
 
-	@Override
-	public String toString() {
-		return "Socketinter{" +
-				"Mysymtoms=" + Mysymtoms +
-				", MyClient=" + MyClient +
-				'}';
-	}
+    public Socketinter(Vector<Symptoms> sympo, Client Clie, double temperature, Region r, Vector<Maladie_chronique> mal) {
+        Mysymtoms = sympo;
+        MyClient = Clie;
+        temperaturee = temperature;
+        region = r;
+        mald = mal;
+    }
 
-	
+    @Override
+    public String toString() {
+        return "Socketinter{" +
+                "Mysymtoms=" + Mysymtoms +
+                ", MyClient=" + MyClient +
+                '}';
+    }
+
+
 }

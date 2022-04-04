@@ -10,6 +10,7 @@ public class StreamController extends Thread {
 
     @Override
     public void run() {
+    	while(true) {
         try {
             new DAORegion().updateDatabase();
             System.out.println("Update done, let's sleep");
@@ -17,5 +18,5 @@ public class StreamController extends Thread {
         } catch (JSONException | IOException | InterruptedException e) {
             e.printStackTrace();
         }
-    }
+    }}
 }

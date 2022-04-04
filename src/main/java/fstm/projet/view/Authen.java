@@ -127,7 +127,7 @@ public class Authen extends JFrame {
 		JButton buttoncreercompte = new JButton("Creer Compte");
 		buttoncreercompte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				setVisible(false);
 			new FRCreerCom().setVisible(true);	
 				
 				
@@ -153,6 +153,7 @@ public class Authen extends JFrame {
 				  try {
 					if(Diagnostic_CTR.authClient(emailString, passString)!=null)
 						try {
+							setVisible(false);
 							new CHoix((Client)Diagnostic_CTR.authClient(emailString, passString)).setVisible(true);
 						} catch (ClassNotFoundException e1) {
 							// TODO Auto-generated catch block

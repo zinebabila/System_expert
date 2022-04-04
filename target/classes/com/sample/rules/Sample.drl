@@ -11,7 +11,7 @@ rule "Regle 1"
       Symptoms(  id_Sym == 1) from G.Mysymtoms
       Symptoms(  id_Sym == 2) from G.Mysymtoms
       Symptoms(  id_Sym == 3) from G.Mysymtoms
-      Client (getTempareture() >= 38) from G.MyClient
+      Diagnostic (getTemperature() >= 38) from G
      
     then
        
@@ -30,7 +30,7 @@ end
 rule "Regle 3"
     when
      G:Diagnostic(get_possi_presence() >= 0.7 , get_possi_presence() < 0.8)
-     Region( haut_risque()==true ) from G.MyClient.getRegion()
+     Region( haut_risque()==true ) from G.getRegion()
     then
        
         modify(G){set_possi_presence(0.8)};
@@ -91,7 +91,7 @@ rule "Regle 9"
     when
      G:Diagnostic(get_possi_presence() >= 0.6   )
       Docteur(isRemplie() == false) from G.d
-    Maladie_chronique(getId_maladie()==1 || getId_maladie()==2 || getId_maladie()==3  ) from G.MyClient.maladies
+    Maladie_chronique(getId_maladie()==1 || getId_maladie()==2 || getId_maladie()==3  ) from G.maladies
      
     then
        
@@ -241,7 +241,7 @@ rule "Regle 24"
     when
      G:Diagnostic(get_possi_presence() >= 0.6   )
       Docteur(isRemplie() == false) from G.d
-    Maladie_chronique(getId_maladie()==1 || getId_maladie()==2 || getId_maladie()==3  ) from G.MyClient.maladies
+    Maladie_chronique(getId_maladie()==1 || getId_maladie()==2 || getId_maladie()==3  ) from G.maladies
      
     then
        

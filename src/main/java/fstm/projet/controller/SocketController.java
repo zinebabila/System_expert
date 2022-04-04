@@ -37,25 +37,26 @@ public class SocketController implements Runnable {
         try {
             is = socket.getInputStream();
             ois = new ObjectInputStream(is);
-            Object objInput =ois.readObject();
-            if( objInput instanceof Client socke){
+            Object objInput = ois.readObject();
+            if (objInput instanceof Client socke) {
                 insertionClient(socke);
-            }else if(objInput instanceof SocketInscription socke){
+            } else if (objInput instanceof SocketInscription socke) {
                 verifieClient(socke);
-            }else if(objInput instanceof Socketinter socke){
+            } else if (objInput instanceof Socketinter socke) {
+                System.out.println("Traiting socketintern.................");
                 diagoniser(socke);
-            }else if(objInput instanceof SocketUpdate socke){
+            }/*else if(objInput instanceof SocketUpdate socke){
                 ClientUpdate(socke);
-            }else if(objInput instanceof Symptoms){
-               sendSymptoms();
-            }else if(objInput instanceof Region){
+            }*/ else if (objInput instanceof Symptoms) {
+                sendSymptoms();
+            } else if (objInput instanceof Region) {
                 sendRegions();
             }
 
-            } catch (IOException | ClassNotFoundException ex) {
+        } catch (IOException | ClassNotFoundException ex) {
             ex.printStackTrace();
 
-    } finally{
+        } finally {
             try {
                 socket.close();
             } catch (IOException e) {
@@ -72,7 +73,7 @@ public class SocketController implements Runnable {
     }
 
     private void sendRegions() throws IOException {
-        DAORegion daoSymptom=new DAORegion();
+        DAORegion daoSymptom = new DAORegion();
         os = socket.getOutputStream();
         oos = new ObjectOutputStream(os);
         System.out.println("Sending values to the ServerSocket");
@@ -80,56 +81,59 @@ public class SocketController implements Runnable {
     }
 
     private void sendSymptoms() throws IOException {
-        DAOSymptom daoSymptom=new DAOSymptom();
+        DAOSymptom daoSymptom = new DAOSymptom();
         os = socket.getOutputStream();
         oos = new ObjectOutputStream(os);
         oos.writeObject(daoSymptom.retreive());
     }
 
-    private void ClientUpdate(SocketUpdate socke) {
+    /*private void ClientUpdate(SocketUpdate socke) {
         DAOClient daoClient=new DAOClient();
         daoClient.updateClient(socke.getClient(),socke.getTemp(),socke.getReg());
         System.out.println("Bien appdate");
-    }
+    }*/
 
     private void diagoniser(Socketinter socke) throws IOException {
-    	DroolsTest d= new DroolsTest();
+        DroolsTest d = new DroolsTest();
         System.out.println(socke.Mysymtoms.toString());
-        Docteur doc =new Docteur(1,"achiban","nourddine");
-        new DAOClient().updateMaladie(socke.MyClient.getMaladies(), socke.MyClient.getCmptCompte().getEmail());
+        Docteur doc = new Docteur(1, "achiban", "nourddine");
+        // new DAOClient().updateMaladie(socke.mald, socke.MyClient.getCmptCompte().getEmail());
 
-        Diagnostic diag=new Diagnostic(1,socke.MyClient,socke.Mysymtoms,doc);
+        Diagnostic diag = new Diagnostic(1, socke.MyClient, socke.Mysymtoms, doc);
+        diag.setTemperature(socke.temperaturee);
+        diag.setRegion(socke.region);
+        diag.setMaladies(socke.mald);
 
         System.out.println(diag);
         System.out.println(diag.MyClient);
-        
+        System.out.println(diag.getMaladies());
+
 
         //Serialization
-        double resu=d.Start_Rules(diag);
+        double resu = d.Start_Rules(diag);
         System.out.println(resu);
         String message;
         diag.set_possi_presence(resu);
-        new DAOClient().updateDiagnostique(diag,socke.MyClient.getCmptCompte().getEmail() );
-        new DAODiagnostic().insert(diag);
+        new DAOClient().updateDiagnostique(diag, socke.MyClient.getCmptCompte().getEmail());
+        //new DAODiagnostic().insert(diag);
         os = socket.getOutputStream();
         oos = new ObjectOutputStream(os);
         System.out.println("Sending values to the ServerSocket");
-        if(d.isEnvoy(doc)) {
-            message ="possibilite de presence : " + resu*100 + " %100 vous etes une cas d'urgence !! vos informations ont envoyes aux autorits compttentes" +"Diagnostic";
+        if (d.isEnvoy(doc)) {
+            message = "possibilite de presence : " + resu * 100 + " %100 vous etes une cas d'urgence !! vos informations ont envoyes aux autorits compttentes" + "Diagnostic";
         } else {
-            message = "possibilite de presence : "+ resu*100 + " %100";
+            message = "possibilite de presence : " + resu * 100 + " %100";
         }
         oos.writeObject(message);
     }
 
     private void verifieClient(SocketInscription socke) throws IOException {
         System.out.println(socke.getEmail());
-        DAOClient daoClient=new DAOClient();
-        Client b =  daoClient.Authentification(socke.getEmail(), socke.getPassword());
+        DAOClient daoClient = new DAOClient();
+        Client b = daoClient.Authentification(socke.getEmail(), socke.getPassword());
         os = socket.getOutputStream();
         oos = new ObjectOutputStream(os);
         System.out.println("Sending values to the ServerSocket");
         oos.writeObject(b);
     }
 }
-
