@@ -39,6 +39,7 @@ public class ClientSt extends JFrame {
 	    private javax.swing.JOptionPane jOptionPane1;
 	    private javax.swing.JPanel jPanel1;
 	    private javax.swing.JTextField jTextField2;
+	    private JButton btnNewButton;
 	
 	 public ClientSt(Client c) {
 
@@ -129,6 +130,14 @@ public class ClientSt extends JFrame {
 	        });
 
 	        jButton1.setText("suivant");
+	        
+	        btnNewButton = new JButton("Retour");
+	        btnNewButton.addActionListener(new ActionListener() {
+	        	public void actionPerformed(ActionEvent e) {
+	        		setVisible(false);
+	        		new CHoix(c).setVisible(true);
+	        	}
+	        });
 
 	        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 	        layout.setHorizontalGroup(
@@ -156,6 +165,10 @@ public class ClientSt extends JFrame {
 	        					.addPreferredGap(ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
 	        					.addComponent(jLabel3, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
 	        					.addGap(151))))
+	        		.addGroup(Alignment.TRAILING, layout.createSequentialGroup()
+	        			.addContainerGap(356, Short.MAX_VALUE)
+	        			.addComponent(btnNewButton)
+	        			.addGap(63))
 	        );
 	        layout.setVerticalGroup(
 	        	layout.createParallelGroup(Alignment.LEADING)
@@ -176,7 +189,9 @@ public class ClientSt extends JFrame {
 	        					.addComponent(jComboBox1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 	        					.addPreferredGap(ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
 	        					.addComponent(jButton1)
-	        					.addGap(85))))
+	        					.addGap(21)
+	        					.addComponent(btnNewButton)
+	        					.addGap(43))))
 	        );
 	        getContentPane().setLayout(layout);
 

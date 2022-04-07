@@ -1,5 +1,6 @@
 package fstm.projet.controller;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -16,6 +17,10 @@ import java.util.stream.Stream;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFRun;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
@@ -120,7 +125,7 @@ public static void rempliTable(DefaultTableModel model,Client c) {
 }
 */
 
-    private static final String host = "172.17.36.160";
+    private static final String host = "192.168.2.104";
     private static final int port = 6000;
 
     public Diagnostic_CTR() {
@@ -264,6 +269,7 @@ return daoClient.Authentification(email, passString);*/
     }
 
     public static void Telecharger_doc(String ext, Client c, int idr) {
+    	if(ext.equals("pdf")) {
         Document document = new Document();
         System.out.println(c.getDiagnostics().get(idr - 1));
         try {
@@ -317,27 +323,111 @@ return daoClient.Authentification(email, passString);*/
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        document.close();
+        document.close();}
+    	else {
+    		XWPFDocument document= new XWPFDocument(); 
+  	      FileOutputStream out = null;
+		try {
+			out = new FileOutputStream(new File("nouveaudoc.docx"));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+  	      XWPFParagraph paragraph = document.createParagraph(); 
+  	      XWPFRun run=paragraph.createRun();
+  	      // Diagnostic 
+  	      run.setBold(true);
+  	      run.setFontSize(40);
+  	      run.setColor("808080"); //Set Color
+  	      run.setText("Diagnostic");
+  	      //date 
+  	      XWPFParagraph paragraph2 = document.createParagraph(); 
+  	      XWPFRun date=paragraph2.createRun();
+  	      date.setFontSize(18);
+  	      date.setText("20202-02-18");
+  	      // informations du client 
+  	      XWPFParagraph paragraph3 = document.createParagraph(); 
+  	      XWPFRun info=paragraph3.createRun();
+  	      info.setFontSize(25);
+  	      info.setColor("0000FF");
+  	      info.setText("Informations du client ");
+  	       XWPFParagraph paragraph4 = document.createParagraph(); 
+  	        XWPFRun nom=paragraph4.createRun();
+	      nom.setFontSize(14);
+	      nom.setText(" Nom :" + c.getNom() );
+	      paragraph4 = document.createParagraph();
+	      XWPFRun prenom=paragraph4.createRun();
+	      prenom.setFontSize(14);
+	      prenom.setText(" Prenom : " + c.getPrenom() );
+	      paragraph4 = document.createParagraph();
+	      XWPFRun age=paragraph4.createRun();
+	      age.setFontSize(14);
+	      age.setText("  Age : " + c.getage() );
+	      XWPFParagraph paragraph5 = document.createParagraph(); 
+	  	    XWPFRun info1=paragraph5.createRun();
+	  	  info1.setFontSize(25);
+  	      info1.setColor("0000FF");
+  	      info1.setText("Informations du diagnostic ");
+  	    XWPFParagraph paragraph6 = document.createParagraph(); 
+		      XWPFRun temp=paragraph6.createRun();
+		      temp.setFontSize(18);
+		      temp.setText("Temperature :" + c.getDiagnostics().get(idr - 1).getTemperature() );
+		      paragraph6 = document.createParagraph(); 
+		      XWPFRun region=paragraph6.createRun();
+		      region.setFontSize(18);
+		      region.setText(" Region :" + c.getDiagnostics().get(idr - 1).getRegion().getNom_region() ); 
+		      XWPFParagraph paragraph7 = document.createParagraph(); 
+		  	    XWPFRun info2=paragraph7.createRun();
+		  	  info2.setFontSize(18);
+	  	      info2.setColor("FFE4E1");
+	  	      info2.setText("liste des maladie chronique ");
+	  	    XWPFParagraph paragraph8 = document.createParagraph(); 
+		      XWPFRun mal=paragraph8.createRun();
+		      mal.setFontSize(14);
+		      StringBuilder symString = new StringBuilder("  ");
+	            for (Maladie_chronique s : c.getDiagnostics().get(idr - 1).getMaladies()) {
+	            	System.out.println(s.getNom());
+	                symString.append("     ").append(s.getNom());
+	            }
+		      mal.setText(symString.toString() );
+		      XWPFParagraph paragraph9 = document.createParagraph(); 
+		  	    XWPFRun info3=paragraph9.createRun();
+		  	  info3.setFontSize(18);
+	  	      info3.setColor("FFE4E1");
+	  	      info3.setText("liste des symptoms ");
+	  	    XWPFParagraph paragraph10 = document.createParagraph(); 
+		      XWPFRun sym=paragraph10.createRun();
+		      sym.setFontSize(14);
+		      symString = new StringBuilder("  ");
+	            for (Symptoms s : c.getDiagnostics().get(idr - 1).getMysymtoms()) {
+	                symString.append("     ").append(s.designation);
+	            }
+	            sym.setText(symString.toString());
+	            paragraph = document.createParagraph(); 
+	    	     run=paragraph.createRun();
+	    	      // Diagnostic 
+	    	      run.setBold(true);
+	    	      run.setFontSize(40);
+	    	      run.setColor("808080"); //Set Color
+	    	      run.setText("Resultat : "+c.getDiagnostics().get(idr - 1).getResultat()); 
+  	      try {
+			document.write(out);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+  	      
+  	      try {
+			out.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	}
     }
 
 
-    private static void addTableHeader(PdfPTable table) {
-        Stream.of("column header 1", "column header 2", "column header 3")
-                .forEach(columnTitle -> {
-                    PdfPCell header = new PdfPCell();
-                    header.setBackgroundColor(BaseColor.LIGHT_GRAY);
-                    header.setBorderWidth(2);
-                    header.setPhrase(new Phrase(columnTitle));
-                    table.addCell(header);
-                });
-    }
-
-    private static void addRows(PdfPTable table) {
-        table.addCell("row 1, col 1");
-        table.addCell("row 1, col 2");
-        table.addCell("row 1, col 3");
-    }
-
+   
 	public static void rempliTableRegion(DefaultTableModel model) {
 		 try {
 			for (Region reg : afficheRe()) {

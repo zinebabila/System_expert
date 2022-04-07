@@ -92,11 +92,11 @@ public class ConsulterDiag extends JFrame {
         button.addActionListener(
                 event -> {
                     int idr = table.getSelectedRow();
-                    String[] sexe = {"pdf", "docx", "excel"};
+                    String[] sexe = {"pdf", "docx"};
                     JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
                     String nom = (String) JOptionPane.showInputDialog(null, "Veuillez indiquer l'extenssion !", "telecharger diagnostique", JOptionPane.QUESTION_MESSAGE, null, sexe, "choix");
                     Diagnostic_CTR.Telecharger_doc(nom, c, idr);
-
+                    setVisible(false);
                     new ConsulterDiag(c).setVisible(true);
 
 

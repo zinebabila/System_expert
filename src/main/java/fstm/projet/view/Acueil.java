@@ -179,7 +179,7 @@ public class Acueil extends JFrame {
         jList2 = new javax.swing.JList<>();
         jList2.setModel(m2);
 
-        JButton btnNewButton = new JButton("Mes diagnostique");
+        JButton btnNewButton = new JButton("Retour");
         btnNewButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
